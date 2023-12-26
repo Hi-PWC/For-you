@@ -1,0 +1,73 @@
+<html lang="Zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> </title>
+  <style>
+    #typing-text {
+       margin: auto; 
+      font-size: 24px;
+      font-family: 'Arial', sans-serif;
+      border-right: none; /* 消除右边边框 */
+      white-space: normal; /* 允许文本换行 */
+      overflow: hidden; /* 隐藏溢出的文本 */
+    }
+
+    /* 新增样式，定义光标的闪烁效果 */
+    #typing-text::after {
+      content: '|';
+      animation: blink-caret 0.7s infinite;
+    }
+
+    @keyframes blink-caret {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body style="background-color: blanchedalmond;">
+
+<div id="typing-text" style="width: 50% ;color: #464646;"></div>
+
+<script>
+  // 要显示的文本
+  const textToType = "哈鲁哇，谢谢你扫描这个二维码，提前祝你2024年快乐哦~                  萃鸿同学，我们经过一个月的相处，我觉得你是一个阳光且有毅力的女孩纸，哈哈！                   谢谢你给我鼓励，听我发牢骚，也给了我很多快乐，嘿嘿~                哎呀怎么突然这么隆重，就是希望大家2024年继续努力哦~加油！^_^                 不过，你也要注意身体哦，不要经常熬夜，对自己好点呀~               比心，嘿嘿";
+
+  // 获取显示文本的元素
+  const typingTextElement = document.getElementById('typing-text');
+
+  // 设置初始文本内容为空字符串
+  typingTextElement.textContent = '';
+
+  // 定义打字速度和定时器
+  const typingSpeed = 100; // 每个字符的打字速度（以毫秒为单位）
+  let charIndex = 0;
+
+  function typeText() {
+    // 检查是否达到文本的末尾
+    if (charIndex < textToType.length) {
+      // 获取div的宽度
+      const divWidth = typingTextElement.offsetWidth;
+
+      // 计算文本宽度
+      const textWidth = typingTextElement.textContent.length * typingTextElement.fontSize;
+
+      // 如果文本宽度超过div宽度，则自动换行
+      if (textWidth > divWidth) {
+        typingTextElement.textContent += '\n';
+      }
+
+      // 将字符添加到显示文本中
+      typingTextElement.textContent += textToType.charAt(charIndex);
+      charIndex++;
+
+      // 设置定时器，递归调用自身以实现逐字符打字效果
+      setTimeout(typeText, typingSpeed);
+    }
+  }
+
+  // 启动打字效果
+  typeText();
+</script>
+</body>
+</html>
